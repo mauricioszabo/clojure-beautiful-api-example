@@ -4,16 +4,6 @@
             [langohr.queue     :as lq]
             [langohr.basic     :as lb]))
 
-(defn -main
-  [& args]
-  (let [conn  (rmq/connect)
-        ch    (lch/open conn)
-        qname "langohr.examples.hello-world"]
-    (lq/declare ch "langohr.examples.hello-world" {:exclusive false :auto-delete true})
-    (lb/publish ch "" "langohr.examples.hello-world" "Hello!" {:content-type "text/plain" :type "greetings.hi"})
-    (rmq/close ch)
-    (rmq/close conn)))
-
 (defn connect []
   (rmq/connect))
 
